@@ -10,9 +10,9 @@ public enum ErrorCode {
     /**
      * 会话已过期，请重新登录
      */
-    SESSION_EXPIRE("99000101", "会话已过期，请重新登录"),
+    SESSION_EXPIRE("99000101", "Session timeout，Please login!"),
 
-    SESSION_ERROR("99000102", "会话错误，请重新登录");
+    SESSION_ERROR("99000102", "Session error，Please login!");
 
     private String code;
 

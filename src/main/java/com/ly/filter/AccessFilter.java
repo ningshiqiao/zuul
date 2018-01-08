@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.netflix.zuul.util.ZuulRuntimeException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
@@ -49,7 +48,8 @@ public class AccessFilter extends ZuulFilter{
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        if (request.getServletPath().contains("login")) {
+        if (request.getServletPath().contains("login")
+                || request.getServletPath().contains("find-all-banner")) {
             return null;
         }
 
@@ -58,7 +58,7 @@ public class AccessFilter extends ZuulFilter{
         //TODO 查询Redis
         if (!StringUtils.hasText(token)) {
             ctx.setSendZuulResponse(false);
-            ctx.setResponseStatusCode(401);
+            ctx.setResponseStatusCode(200);
             Result result =  new Result(ErrorCode.SESSION_EXPIRE.getCode(), ErrorCode.SESSION_EXPIRE.getMessage());
             ctx.setResponseBody(JSON.toJSONString(result));
             return null;
@@ -78,24 +78,27 @@ public class AccessFilter extends ZuulFilter{
                     String redisToken = operations.get(key);
                     if (!token.equals(redisToken)){
                         ctx.setSendZuulResponse(false);
-                        ctx.setResponseStatusCode(401);
+                        ctx.setResponseStatusCode(200);
                         Result result =  new Result(ErrorCode.SESSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
                         ctx.setResponseBody(JSON.toJSONString(result));
+                        return null;
                     }
                 }else{
                     ctx.setSendZuulResponse(false);
-                    ctx.setResponseStatusCode(401);
+                    ctx.setResponseStatusCode(200);
                     Result result =  new Result(ErrorCode.SESSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
                     ctx.setResponseBody(JSON.toJSONString(result));
+                    return null;
                 }
 
                 ctx.addZuulRequestHeader(Global.USER_ID, claims.get(Global.USER_ID).toString());
                 ctx.addZuulRequestHeader(Global.PHONE, claims.get(Global.PHONE).toString());
             }catch (Exception e){
                 ctx.setSendZuulResponse(false);
-                ctx.setResponseStatusCode(401);
+                ctx.setResponseStatusCode(200);
                 Result result =  new Result(ErrorCode.SESSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
                 ctx.setResponseBody(JSON.toJSONString(result));
+                return null;
             }
         }
         return null;
