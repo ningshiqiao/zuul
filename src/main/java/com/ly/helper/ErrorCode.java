@@ -12,7 +12,7 @@ public enum ErrorCode {
      */
     SESSION_EXPIRE("99000101", "Session timeout，Please login!"),
 
-    SESSION_ERROR("99000102", "Session error，Please login!");
+    SESSION_ERROR("99000102", "Sesi telah berakhir, silahkan login lagi!");
 
     private String code;
 
