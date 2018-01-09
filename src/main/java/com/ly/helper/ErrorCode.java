@@ -10,7 +10,7 @@ public enum ErrorCode {
     /**
      * 会话已过期，请重新登录
      */
-    SESSION_EXPIRE("99000101", "Session timeout，Please login!"),
+    SESSION_EXPIRE("99000101", "Sesi telah berakhir, silahkan login lagi!"),
 
     SESSION_ERROR("99000102", "Sesi telah berakhir, silahkan login lagi!");
 
