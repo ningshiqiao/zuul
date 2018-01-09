@@ -46,14 +46,18 @@ public class AccessFilter extends ZuulFilter{
     public boolean shouldFilter() {
         return true;
     }
-
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
+        LOGGER.info(" ============== request.getServletPath " + request.getServletPath());
+
         if (request.getServletPath().contains("login")
-                || request.getServletPath().contains("find-all-banner")) {
+                || request.getServletPath().contains("find-all-banner")
+                || request.getServletPath().contains("all-data")
+                || request.getServletPath().contains("versionnew")
+                ) {
             return null;
         }
 
