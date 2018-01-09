@@ -28,6 +28,10 @@ public class AccessFilter extends ZuulFilter{
     @Value("${jwt.key}")
     private String jwt_key = "onecard";
 
+    @Value("${xendit.token}")
+    private String xendit_token = "4459e7d313f232f38ec15ba097b654d905caeb221fc2e71e73e163729599fcbc";
+
+
     @Override
     public String filterType() {
         return "pre";
@@ -50,6 +54,22 @@ public class AccessFilter extends ZuulFilter{
 
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")) {
+            return null;
+        }
+
+        if (request.getServletPath().contains("loanCallback")
+                || request.getServletPath().contains("repayment-callback")) {
+
+            String token = request.getHeader("token");
+            if (StringUtils.hasText(token)){
+                if (!xendit_token.equals(token)){
+                    ctx.setSendZuulResponse(false);
+                    ctx.setResponseStatusCode(200);
+                    Result result =  new Result(ErrorCode.SESSION_EXPIRE.getCode(), ErrorCode.SESSION_EXPIRE.getMessage());
+                    ctx.setResponseBody(JSON.toJSONString(result));
+                    return null;
+                }
+            }
             return null;
         }
 
