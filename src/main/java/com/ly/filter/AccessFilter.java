@@ -51,8 +51,8 @@ public class AccessFilter extends ZuulFilter{
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        LOGGER.debug(" ============== request.getServletPath {}" , request.getServletPath());
-        LOGGER.debug(" ============== request.getHeaders {} " , request.getHeaderNames());
+        LOGGER.info(" ============== request.getServletPath {}" , request.getServletPath());
+        LOGGER.info(" ============== request.getHeaders {} " , request.getHeaderNames());
 
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
@@ -66,7 +66,7 @@ public class AccessFilter extends ZuulFilter{
                 || request.getServletPath().contains("repayment-callback")) {
 
             String token = request.getHeader("token");
-            LOGGER.debug(" ==============  loanCallback token {} " , token);
+            LOGGER.info(" ==============  loanCallback token {} " , token);
 
             if (StringUtils.hasText(token)){
                 if (xendit_token.equals(token)){
