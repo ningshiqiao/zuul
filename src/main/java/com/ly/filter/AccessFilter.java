@@ -55,13 +55,13 @@ public class AccessFilter extends ZuulFilter{
         LOGGER.info(" ============== request.getServletPath {}" , request.getServletPath().toString());
         LOGGER.info(" ============== request.getHeaders {} " , request.getHeaderNames().toString());
 
-        Enumeration headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String key = (String) headerNames.nextElement();
-            String value = request.getHeader(key);
-            LOGGER.info(" === key {} ",key);
-            LOGGER.info(" === value {} ",value);
-        }
+//        Enumeration headerNames = request.getHeaderNames();
+//        while (headerNames.hasMoreElements()) {
+//            String key = (String) headerNames.nextElement();
+//            String value = request.getHeader(key);
+//            LOGGER.info(" === key {} ",key);
+//            LOGGER.info(" === value {} ",value);
+//        }
 
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
