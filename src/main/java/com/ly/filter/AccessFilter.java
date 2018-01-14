@@ -74,7 +74,7 @@ public class AccessFilter extends ZuulFilter{
         if (request.getServletPath().contains("loanCallback")
                 || request.getServletPath().contains("repayment-callback")) {
 
-            String token = request.getHeader("token");
+            String token = request.getHeader("x-callback-token");
             LOGGER.info(" ==============  loanCallback token {} " , token);
             LOGGER.info(" ==============  xendit_token token {} " , xendit_token);
 
