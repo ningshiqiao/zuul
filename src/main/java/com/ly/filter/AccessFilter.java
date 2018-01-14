@@ -107,6 +107,7 @@ public class AccessFilter extends ZuulFilter{
                         return null;
                     }
                 }else{
+                    LOGGER.info("nokey ==== {} ",key);
                     ctx.setSendZuulResponse(false);
                     ctx.setResponseStatusCode(200);
                     Result result =  new Result(ErrorCode.SESSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
@@ -117,6 +118,7 @@ public class AccessFilter extends ZuulFilter{
                 ctx.addZuulRequestHeader(Global.USER_ID, claims.get(Global.USER_ID).toString());
                 ctx.addZuulRequestHeader(Global.PHONE, claims.get(Global.PHONE).toString());
             }catch (Exception e){
+                LOGGER.info("key error ==== {} ",token);
                 ctx.setSendZuulResponse(false);
                 ctx.setResponseStatusCode(200);
                 Result result =  new Result(ErrorCode.SESSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
