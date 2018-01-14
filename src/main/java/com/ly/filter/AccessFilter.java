@@ -67,9 +67,11 @@ public class AccessFilter extends ZuulFilter{
 
             String token = request.getHeader("token");
             LOGGER.info(" ==============  loanCallback token {} " , token);
+            LOGGER.info(" ==============  xendit_token token {} " , xendit_token);
 
             if (StringUtils.hasText(token)){
                 if (xendit_token.equals(token)){
+                    LOGGER.info(" ==============  loanCallback ok  ");
                     return null;
                 }
             }
