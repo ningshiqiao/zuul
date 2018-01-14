@@ -98,6 +98,8 @@ public class AccessFilter extends ZuulFilter{
                 if (hasKey) {
                     String redisToken = operations.get(key);
                     if (!token.equals(redisToken)){
+                        LOGGER.info("toekn ==== {} ",token);
+                        LOGGER.info("redisToken ==== {} ",redisToken);
                         ctx.setSendZuulResponse(false);
                         ctx.setResponseStatusCode(200);
                         Result result =  new Result(ErrorCode.SESSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
