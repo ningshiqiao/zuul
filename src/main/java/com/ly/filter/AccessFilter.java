@@ -51,8 +51,9 @@ public class AccessFilter extends ZuulFilter{
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        LOGGER.info(" ============== request.getServletPath {}" , request.getServletPath());
-        LOGGER.info(" ============== request.getHeaders {} " , request.getHeaderNames());
+        LOGGER.info(" ============== request.getServletPath {}" , request.getServletPath().toString());
+        LOGGER.info(" ============== request.getHeaders {} " , request.getHeaderNames().toString());
+
 
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
