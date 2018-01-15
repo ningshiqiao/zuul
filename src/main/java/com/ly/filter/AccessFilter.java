@@ -29,7 +29,7 @@ public class AccessFilter extends ZuulFilter{
     @Value("${jwt.key}")
     private String jwt_key;
 
-    @Value("${xendit.token:4459e7d313f232f38ec15ba097b654d905caeb221fc2e71e73e163729599fcbc}")
+    @Value("${xendit.token:c8c966dab26cb4eb3394f8a644c2255968ba11ffe8dc8187442a3662f321c843}")
     private String xendit_token;
 
 
