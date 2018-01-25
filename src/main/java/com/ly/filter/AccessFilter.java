@@ -32,6 +32,9 @@ public class AccessFilter extends ZuulFilter{
     @Value("${xendit.token:c8c966dab26cb4eb3394f8a644c2255968ba11ffe8dc8187442a3662f321c843}")
     private String xendit_token;
 
+    @Value("${test.token}")
+    private String test_token;
+
 
     @Override
     public String filterType() {
@@ -55,19 +58,29 @@ public class AccessFilter extends ZuulFilter{
         LOGGER.info(" ============== request.getServletPath {}" , request.getServletPath().toString());
         LOGGER.info(" ============== request.getHeaders {} " , request.getHeaderNames().toString());
 
-//        Enumeration headerNames = request.getHeaderNames();
-//        while (headerNames.hasMoreElements()) {
-//            String key = (String) headerNames.nextElement();
-//            String value = request.getHeader(key);
-//            LOGGER.info(" === key {} ",key);
-//            LOGGER.info(" === value {} ",value);
-//        }
-
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
                 || request.getServletPath().contains("all-data")
                 || request.getServletPath().contains("versionnew")
                 ) {
+            return null;
+        }
+
+        if (request.getServletPath().contains("clear-user")) {
+            String token = request.getHeader("x-test-token");
+            LOGGER.info(" ==============  loanCallback token {} " , token);
+            LOGGER.info(" ==============  test_token token {} " , test_token);
+
+            if (StringUtils.hasText(token)){
+                if (test_token.equals(token)){
+                    LOGGER.info(" ==============  test_token ok  ");
+                    return null;
+                }
+            }
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(200);
+            Result result =  new Result(ErrorCode.SESSION_EXPIRE.getCode(), ErrorCode.SESSION_EXPIRE.getMessage());
+            ctx.setResponseBody(JSON.toJSONString(result));
             return null;
         }
 
