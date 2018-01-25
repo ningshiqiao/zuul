@@ -66,7 +66,8 @@ public class AccessFilter extends ZuulFilter{
             return null;
         }
 
-        if (request.getServletPath().contains("clear-user")) {
+        if (request.getServletPath().contains("clear-user")
+                || request.getServletPath().contains("clear-cache")) {
             String token = request.getHeader("x-test-token");
             LOGGER.info(" ==============  loanCallback token {} " , token);
             LOGGER.info(" ==============  test_token token {} " , test_token);
