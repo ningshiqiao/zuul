@@ -6,4 +6,4 @@ ADD *.jar app.jar
 RUN ln -sf /usr/share/zoneinfo/Asia/Jakarta  /etc/localtime
 EXPOSE 10003
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/.urandom","-jar","/app.jar"]
+ENTRYPOINT ["java","-Xmx1024m","-Djava.security.egd=file:/dev/.urandom","-jar","/app.jar"]

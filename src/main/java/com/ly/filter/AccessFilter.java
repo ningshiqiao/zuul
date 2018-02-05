@@ -56,7 +56,6 @@ public class AccessFilter extends ZuulFilter{
         HttpServletRequest request = ctx.getRequest();
 
         LOGGER.info(" ============== request.getServletPath {}" , request.getServletPath().toString());
-        LOGGER.info(" ============== request.getHeaders {} " , request.getHeaderNames().toString());
 
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
@@ -69,7 +68,7 @@ public class AccessFilter extends ZuulFilter{
         if (request.getServletPath().contains("clear-user")
                 || request.getServletPath().contains("clear-cache")) {
             String token = request.getHeader("x-test-token");
-            LOGGER.info(" ==============  loanCallback token {} " , token);
+            LOGGER.info(" ==============  x-test-token token {} " , token);
             LOGGER.info(" ==============  test_token token {} " , test_token);
 
             if (StringUtils.hasText(token)){
@@ -78,6 +77,8 @@ public class AccessFilter extends ZuulFilter{
                     return null;
                 }
             }
+            LOGGER.info(" ==============  test_token fail  ");
+
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(200);
             Result result =  new Result(ErrorCode.SESSION_EXPIRE.getCode(), ErrorCode.SESSION_EXPIRE.getMessage());
