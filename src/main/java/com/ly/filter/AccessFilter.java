@@ -61,6 +61,7 @@ public class AccessFilter extends ZuulFilter{
                 || request.getServletPath().contains("find-all-banner")
                 || request.getServletPath().contains("all-data")
                 || request.getServletPath().contains("versionnew")
+                || request.getServletPath().contains("/v1/vipdiskon/get")
                 ) {
             return null;
         }
