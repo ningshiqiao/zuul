@@ -62,6 +62,8 @@ public class AccessFilter extends ZuulFilter{
                 || request.getServletPath().contains("all-data")
                 || request.getServletPath().contains("versionnew")
                 || request.getServletPath().contains("/v1/vipdiskon/get")
+                || request.getServletPath().contains("/v1/callback/bluePayLoanCallback")
+                || request.getServletPath().contains("/v1/callback/bluePayRepaymentCallback")
                 ) {
             return null;
         }
