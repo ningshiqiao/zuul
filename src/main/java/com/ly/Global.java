@@ -9,4 +9,6 @@ public class Global {
 
     public static final String PHONE = "PHONE";
 
+    public static final String PRODUCT_NAME = "PRODUCT_NAME";
+
 }
