@@ -110,7 +110,7 @@ public class AccessFilter extends ZuulFilter{
         }
 
         String token = request.getHeader("token");
-
+        String productName = request.getHeader("PRODUCT_NAME");
         //TODO 查询Redis
         if (StringUtils.hasText(token)) {
             try {
@@ -146,7 +146,8 @@ public class AccessFilter extends ZuulFilter{
 
                 ctx.addZuulRequestHeader(Global.USER_ID, claims.get(Global.USER_ID).toString());
                 ctx.addZuulRequestHeader(Global.PHONE, claims.get(Global.PHONE).toString());
-                ctx.addZuulRequestHeader(Global.PRODUCT_NAME, claims.get(Global.PRODUCT_NAME).toString());
+                ctx.addZuulRequestHeader(Global.PRODUCT_NAME, productName);
+
             }catch (Exception e){
                 LOGGER.info("key error ==== {} ",token);
                 ctx.setSendZuulResponse(false);
