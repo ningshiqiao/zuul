@@ -56,6 +56,7 @@ public class AccessFilter extends ZuulFilter{
         HttpServletRequest request = ctx.getRequest();
 
         LOGGER.info(" ============== request.getServletPath {}" , request.getServletPath().toString());
+        String productName = request.getHeader("PRODUCT_NAME");
 
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
@@ -65,6 +66,7 @@ public class AccessFilter extends ZuulFilter{
                 || request.getServletPath().contains("/v1/callback/bluePayLoanCallback")
                 || request.getServletPath().contains("/v1/callback/bluePayRepaymentCallback")
                 ) {
+            ctx.addZuulRequestHeader(Global.PRODUCT_NAME, productName);
             return null;
         }
 
@@ -110,7 +112,6 @@ public class AccessFilter extends ZuulFilter{
         }
 
         String token = request.getHeader("token");
-        String productName = request.getHeader("PRODUCT_NAME");
         //TODO 查询Redis
         if (StringUtils.hasText(token)) {
             try {
