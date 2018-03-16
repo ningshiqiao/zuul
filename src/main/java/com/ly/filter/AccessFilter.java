@@ -57,6 +57,9 @@ public class AccessFilter extends ZuulFilter{
 
         LOGGER.info(" ============== request.getServletPath {}" , request.getServletPath().toString());
         String productName = request.getHeader("PRODUCT_NAME");
+        if (!StringUtils.hasText(productName)){
+            productName = "";
+        }
 
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
