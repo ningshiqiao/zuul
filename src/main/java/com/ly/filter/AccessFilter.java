@@ -60,13 +60,13 @@ public class AccessFilter extends ZuulFilter{
         if (!StringUtils.hasText(productName)){
             productName = "";
         }
-
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
                 || request.getServletPath().contains("find-all-banner-v2")
                 || request.getServletPath().contains("all-data")
                 || request.getServletPath().contains("versionnew")
                 || request.getServletPath().contains("/v1/vipdiskon/get")
+                || request.getServletPath().contains("/v1/verifystate/get-list")
                 || request.getServletPath().contains("/v1/callback/bluePayLoanCallback")
                 || request.getServletPath().contains("/v1/callback/bluePayRepaymentCallback")
                 || request.getServletPath().contains("/v1/banner/startup-page")
@@ -117,6 +117,7 @@ public class AccessFilter extends ZuulFilter{
         }
 
         String token = request.getHeader("token");
+
         //TODO 查询Redis
         if (StringUtils.hasText(token)) {
             try {
@@ -152,8 +153,6 @@ public class AccessFilter extends ZuulFilter{
 
                 ctx.addZuulRequestHeader(Global.USER_ID, claims.get(Global.USER_ID).toString());
                 ctx.addZuulRequestHeader(Global.PHONE, claims.get(Global.PHONE).toString());
-                ctx.addZuulRequestHeader(Global.PRODUCT_NAME, productName);
-
             }catch (Exception e){
                 LOGGER.info("key error ==== {} ",token);
                 ctx.setSendZuulResponse(false);

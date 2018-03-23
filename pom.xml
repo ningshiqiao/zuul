@@ -6,7 +6,7 @@
     <groupId>registry.cn-beijing.aliyuncs.com</groupId>
     <artifactId>haiwai</artifactId>
 
-    <version>3.00</version>
+    <version>3.09</version>
     <packaging>jar</packaging>
 
     <name>zuul</name>
