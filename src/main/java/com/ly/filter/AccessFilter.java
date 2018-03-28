@@ -66,13 +66,17 @@ public class AccessFilter extends ZuulFilter{
                 || request.getServletPath().contains("all-data")
                 || request.getServletPath().contains("versionnew")
                 || request.getServletPath().contains("/v1/vipdiskon/get")
-                || request.getServletPath().contains("/v1/verifystate/get-list")
                 || request.getServletPath().contains("/v1/callback/bluePayLoanCallback")
                 || request.getServletPath().contains("/v1/callback/bluePayRepaymentCallback")
                 || request.getServletPath().contains("/v1/banner/startup-page")
                 ) {
             ctx.addZuulRequestHeader(Global.PRODUCT_NAME, productName);
             return null;
+        }
+        if (request.getServletPath().contains("/v1/verifystate/get-list")){
+            if (StringUtils.hasText(request.getHeader("token"))){
+                return null;
+            }
         }
 
         if (request.getServletPath().contains("clear-user")
