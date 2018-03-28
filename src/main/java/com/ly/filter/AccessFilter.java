@@ -74,7 +74,7 @@ public class AccessFilter extends ZuulFilter{
             return null;
         }
         if (request.getServletPath().contains("/v1/verifystate/get-list")){
-            if (StringUtils.hasText(request.getHeader("token"))){
+            if (!StringUtils.hasText(request.getHeader("token"))){
                 return null;
             }
         }
