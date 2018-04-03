@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.ly.Global;
 import com.ly.helper.ErrorCode;
 import com.ly.helper.Result;
+import com.ly.response.vo.SysRoleResourceVo;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import io.jsonwebtoken.Claims;
@@ -18,6 +19,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
+import java.util.List;
 
 public class AccessFilter extends ZuulFilter{
 
@@ -36,6 +38,8 @@ public class AccessFilter extends ZuulFilter{
     private String test_token;
 
 
+    //资源的前缀
+    private static final String RESOURCE_INDEX="RESOURCE";
     @Override
     public String filterType() {
         return "pre";
@@ -146,6 +150,32 @@ public class AccessFilter extends ZuulFilter{
                         ctx.setResponseBody(JSON.toJSONString(result));
                         return null;
                     }
+                    String json = operations.get(RESOURCE_INDEX + ":" + userId);
+                    //判断登录用户是否有权限
+                    /*if(!StringUtils.hasText(json)){
+                        ctx.setSendZuulResponse(false);
+                        ctx.setResponseStatusCode(200);
+                        Result result =  new Result(ErrorCode.PERMISSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
+                        ctx.setResponseBody(JSON.toJSONString(result));
+                        return null;
+                    }
+                    List<SysRoleResourceVo> sysRoleResourceVos = JSON.parseArray(json, SysRoleResourceVo.class);
+                    boolean flag=false;
+                    for(SysRoleResourceVo vo:sysRoleResourceVos){
+                        String resourceType = vo.getResourceType();
+                        String resourceUrl = vo.getResourceUrl();
+                        if(request.getServletPath().contains(resourceUrl)){
+                            flag=true;
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        ctx.setSendZuulResponse(false);
+                        ctx.setResponseStatusCode(200);
+                        Result result =  new Result(ErrorCode.PERMISSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
+                        ctx.setResponseBody(JSON.toJSONString(result));
+                        return null;
+                    }*/
                 }else{
                     LOGGER.info("nokey ==== {} ",key);
                     ctx.setSendZuulResponse(false);

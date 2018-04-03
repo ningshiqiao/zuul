@@ -12,7 +12,12 @@ public enum ErrorCode {
      */
     SESSION_EXPIRE("99000101", "Sesi telah berakhir, silahkan login lagi!"),
 
-    SESSION_ERROR("99000102", "Sesi telah berakhir, silahkan login lagi!");
+    SESSION_ERROR("99000102", "Sesi telah berakhir, silahkan login lagi!"),
+
+    /**
+     * 用户没有权限
+     */
+    PERMISSION_ERROR("99000103", "User does not have permission");
 
     private String code;
 
