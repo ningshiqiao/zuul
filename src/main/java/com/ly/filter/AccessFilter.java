@@ -187,7 +187,7 @@ public class AccessFilter extends ZuulFilter{
 
                 ctx.addZuulRequestHeader(Global.USER_ID, claims.get(Global.USER_ID).toString());
                 ctx.addZuulRequestHeader(Global.PHONE, claims.get(Global.PHONE).toString());
-                if(null==claims.get(Global.ROLE_ID)){
+                if(null!=claims.get(Global.ROLE_ID)){
                     ctx.addZuulRequestHeader(Global.ROLE_ID, claims.get(Global.ROLE_ID).toString());
                 }
             }catch (Exception e){
