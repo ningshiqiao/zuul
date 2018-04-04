@@ -11,4 +11,6 @@ public class Global {
 
     public static final String PRODUCT_NAME = "PRODUCT_NAME";
 
+    public static final String ROLE_ID = "ROLE_ID";
+
 }
