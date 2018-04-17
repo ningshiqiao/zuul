@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>registry.cn-beijing.aliyuncs.com</groupId>
+    <groupId>registry-vpc.cn-beijing.aliyuncs.com</groupId>
     <artifactId>haiwai</artifactId>
 
-    <version>3.121</version>
+    <version>3.122</version>
     <packaging>jar</packaging>
 
     <name>zuul</name>
