@@ -64,6 +64,10 @@ public class AccessFilter extends ZuulFilter{
         if (!StringUtils.hasText(productName)){
             productName = "";
         }
+        String version = request.getHeader("VERSION");
+        if (!StringUtils.hasText(version)){
+            version = "";
+        }
         if (request.getServletPath().contains("login")
                 || request.getServletPath().contains("find-all-banner")
                 || request.getServletPath().contains("/v2/banner/find-all-banner")
@@ -74,9 +78,11 @@ public class AccessFilter extends ZuulFilter{
                 || request.getServletPath().contains("/v1/callback/bluePayRepaymentCallback")
                 || request.getServletPath().contains("/v2/banner/startup-page")
                 ) {
+            ctx.addZuulRequestHeader(Global.VERSION, version);
             ctx.addZuulRequestHeader(Global.PRODUCT_NAME, productName);
             return null;
         }
+
         if (request.getServletPath().contains("/v1/verifystate/get-list")){
             if (!StringUtils.hasText(request.getHeader("token"))){
                 return null;
@@ -84,7 +90,9 @@ public class AccessFilter extends ZuulFilter{
         }
 
         if (request.getServletPath().contains("clear-user")
-                || request.getServletPath().contains("clear-cache")) {
+                || request.getServletPath().contains("clear-cache")
+                ||request.getServletPath().contains("/appserver/refresh")
+                ||request.getServletPath().contains("/appserver/v1/home/refresh")) {
             String token = request.getHeader("x-test-token");
             LOGGER.info(" ==============  x-test-token token {} " , token);
             LOGGER.info(" ==============  test_token token {} " , test_token);

@@ -13,4 +13,6 @@ public class Global {
 
     public static final String ROLE_ID = "ROLE_ID";
 
+    public static final String VERSION = "VERSION";
+
 }
