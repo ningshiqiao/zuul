@@ -37,6 +37,9 @@ public class AccessFilter extends ZuulFilter{
     @Value("${test.token}")
     private String test_token;
 
+    @Value("${x.kartuone.token}")
+    private String x_kartuone_token;
+
 
     //资源的前缀
     private static final String RESOURCE_INDEX="RESOURCE";
@@ -85,6 +88,17 @@ public class AccessFilter extends ZuulFilter{
 
         if (request.getServletPath().contains("/v1/verifystate/get-list")){
             if (!StringUtils.hasText(request.getHeader("token"))){
+                return null;
+            }
+        }
+
+        if (request.getServletPath().contains("/v1/kartuone/data")){
+            if (!StringUtils.hasText(request.getHeader("X-KARTUONE-TOKEN")) || !request.getHeader("X-KARTUONE-TOKEN").equals(x_kartuone_token)){
+                LOGGER.info(" ==============  X-KARTUONE-TOKEN fail  ");
+                ctx.setSendZuulResponse(false);
+                ctx.setResponseStatusCode(200);
+                Result result =  new Result(ErrorCode.SESSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
+                ctx.setResponseBody(JSON.toJSONString(result));
                 return null;
             }
         }
