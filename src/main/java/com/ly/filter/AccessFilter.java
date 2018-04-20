@@ -101,6 +101,8 @@ public class AccessFilter extends ZuulFilter{
                 ctx.setResponseBody(JSON.toJSONString(result));
                 return null;
             }
+            LOGGER.info(" ==============  X-KARTUONE-TOKEN ok  ");
+            return null;
         }
 
         if (request.getServletPath().contains("clear-user")
