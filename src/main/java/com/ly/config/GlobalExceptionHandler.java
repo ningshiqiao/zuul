@@ -31,9 +31,9 @@ public class GlobalExceptionHandler {
             sb.append("  CODE:");
             sb.append("");
             sb.append("  MESSAGE:");
-            sb.append(exception.getMessage().toString());
+            sb.append(exception.getMessage());
             logger.error(sb.toString());
-            return new Result(Result.Status.ERROR,"",exception.getMessage().toString());
+            return new Result(Result.Status.ERROR,"",exception.getMessage());
         }
     }
 
