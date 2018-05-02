@@ -33,6 +33,7 @@ public class GlobalExceptionHandler {
             sb.append("  MESSAGE:");
             sb.append(exception.getMessage());
             logger.error(sb.toString());
+            exception.printStackTrace();
             return new Result(Result.Status.ERROR,"",exception.getMessage());
         }
     }
