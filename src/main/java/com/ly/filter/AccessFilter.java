@@ -43,6 +43,9 @@ public class AccessFilter extends ZuulFilter{
     @Value("${x.kartuone.token}")
     private String x_kartuone_token;
 
+    @Value("${landingpage.token}")
+    private String landingpage_token;
+
 
     //资源的前缀
     private static final String RESOURCE_INDEX="RESOURCE";
@@ -125,6 +128,19 @@ public class AccessFilter extends ZuulFilter{
                 return null;
             }
             LOGGER.info(" ==============  X-KARTUONE-TOKEN ok  ");
+            return null;
+        }
+
+        if (request.getServletPath().contains("/v1/st-landing-page-info/save")){
+            if (!StringUtils.hasText(request.getHeader("LANDINGPAGE-TOKEN")) || !request.getHeader("LANDINGPAGE-TOKEN").equals(landingpage_token)){
+                LOGGER.info(" ==============  LANDINGPAGE-TOKEN fail  ");
+                ctx.setSendZuulResponse(false);
+                ctx.setResponseStatusCode(200);
+                Result result =  new Result(ErrorCode.SESSION_ERROR.getCode(), ErrorCode.SESSION_ERROR.getMessage());
+                ctx.setResponseBody(JSON.toJSONString(result));
+                return null;
+            }
+            LOGGER.info(" ==============  LANDINGPAGE-TOKEN ok  ");
             return null;
         }
 
