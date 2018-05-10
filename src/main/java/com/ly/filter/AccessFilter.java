@@ -37,6 +37,9 @@ public class AccessFilter extends ZuulFilter{
     @Value("${test.token}")
     private String test_token;
 
+    @Value("${refresh.token}")
+    private String refresh_token;
+
     @Value("${x.kartuone.token}")
     private String x_kartuone_token;
 
@@ -83,6 +86,26 @@ public class AccessFilter extends ZuulFilter{
                 ) {
             ctx.addZuulRequestHeader(Global.VERSION, version);
             ctx.addZuulRequestHeader(Global.PRODUCT_NAME, productName);
+            return null;
+        }
+        if (request.getServletPath().contains("/refresh-config")
+                ||request.getServletPath().contains("/appserver/refresh")
+                ||request.getServletPath().contains("/orderapi/refresh")){
+            String token = request.getHeader("x-test-token");
+            LOGGER.info(" ==============  x-test-token token {} " , token);
+            LOGGER.info(" ==============  refresh_token token {} " , refresh_token);
+
+            if (StringUtils.hasText(token)){
+                if (test_token.equals(token)){
+                    LOGGER.info(" ==============  refresh_token ok  ");
+                    return null;
+                }
+            }
+            LOGGER.info(" ==============  refresh_token fail  ");
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(200);
+            Result result =  new Result(ErrorCode.SESSION_EXPIRE.getCode(), ErrorCode.SESSION_EXPIRE.getMessage());
+            ctx.setResponseBody(JSON.toJSONString(result));
             return null;
         }
 
