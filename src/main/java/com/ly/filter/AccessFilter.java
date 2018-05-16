@@ -40,9 +40,6 @@ public class AccessFilter extends ZuulFilter{
     @Value("${test.token}")
     private String test_token;
 
-    @Value("${refresh.token}")
-    private String refresh_token;
-
     @Value("${x.kartuone.token}")
     private String x_kartuone_token;
 
