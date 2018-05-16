@@ -28,6 +28,9 @@ public class AccessFilter extends ZuulFilter{
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Value("${refresh.token}")
+    private String refresh_token;
+
     @Value("${jwt.key}")
     private String jwt_key;
 
@@ -112,6 +115,27 @@ public class AccessFilter extends ZuulFilter{
             return null;
         }
 
+        if (request.getServletPath().contains("/refresh-config")
+                ||request.getServletPath().contains("/appserver/refresh")
+                ||request.getServletPath().contains("/orderapi/refresh")){
+            String token = request.getHeader("x-test-token");
+            LOGGER.info(" ==============  x-test-token token {} " , token);
+            LOGGER.info(" ==============  refresh_token token {} " , refresh_token);
+
+            if (StringUtils.hasText(token)){
+                if (refresh_token.equals(token)){
+                    LOGGER.info(" ==============  refresh_token ok  ");
+                    return null;
+                }
+            }
+            LOGGER.info(" ==============  refresh_token fail  ");
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(200);
+            Result result =  new Result(ErrorCode.SESSION_EXPIRE.getCode(), ErrorCode.SESSION_EXPIRE.getMessage());
+            ctx.setResponseBody(JSON.toJSONString(result));
+            return null;
+        }
+
         if (request.getServletPath().contains("/v1/verifystate/get-list")){
             if (!StringUtils.hasText(request.getHeader("token"))){
                 return null;
@@ -145,9 +169,7 @@ public class AccessFilter extends ZuulFilter{
         }
 
         if (request.getServletPath().contains("clear-user")
-                || request.getServletPath().contains("clear-cache")
-                ||request.getServletPath().contains("/appserver/refresh")
-                ||request.getServletPath().contains("/appserver/v1/home/refresh")) {
+                || request.getServletPath().contains("clear-cache")) {
             String token = request.getHeader("x-test-token");
             LOGGER.info(" ==============  x-test-token token {} " , token);
             LOGGER.info(" ==============  test_token token {} " , test_token);
