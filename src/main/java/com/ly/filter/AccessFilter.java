@@ -86,6 +86,7 @@ public class AccessFilter extends ZuulFilter{
                 || request.getServletPath().contains("/v1/callback/bluePayLoanCallback")
                 || request.getServletPath().contains("/v1/callback/bluePayRepaymentCallback")
                 || request.getServletPath().contains("/v2/banner/startup-page")
+                || request.getServletPath().contains("/v1/bulletin-message/get-home-bulletin")
                 ) {
             ctx.addZuulRequestHeader(Global.VERSION, version);
             ctx.addZuulRequestHeader(Global.PRODUCT_NAME, productName);
