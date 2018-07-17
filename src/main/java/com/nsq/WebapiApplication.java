@@ -1,6 +1,6 @@
-package com.ly;
+package com.nsq;
 
-import com.ly.filter.AccessFilter;
+import com.nsq.filter.AccessFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;

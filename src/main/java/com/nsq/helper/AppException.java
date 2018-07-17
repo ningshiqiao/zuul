@@ -1,4 +1,4 @@
-package com.ly.helper;
+package com.nsq.helper;
 
 public class AppException extends Exception {
 

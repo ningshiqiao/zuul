@@ -1,4 +1,4 @@
-package com.ly.config;
+package com.nsq.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,9 +6,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-/**
- * Created by zhongwei on 22/03/2017.
- */
 @Configuration
 public class CORSConfiguration {
     @Bean

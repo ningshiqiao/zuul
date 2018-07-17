@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>registry-vpc.cn-beijing.aliyuncs.com</groupId>
-    <artifactId>haiwai</artifactId>
+    <groupId>registry.cn-beijing.aliyuncs.com</groupId>
+    <artifactId>ningsq</artifactId>
 
     <version>3.131</version>
     <packaging>jar</packaging>

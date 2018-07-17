@@ -1,7 +1,7 @@
-package com.ly.config;
+package com.nsq.config;
 
-import com.ly.helper.AppException;
-import com.ly.helper.Result;
+import com.nsq.helper.AppException;
+import com.nsq.helper.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
